@@ -395,7 +395,6 @@ export default function App() {
         const type = q.type;
         if (scores[type]) {
             scores[type].total += 1;
-            // FIX: Trim whitespace from both the user's answer and the correct answer for a more reliable comparison.
             if (userAnswers[index]?.trim() === q.correctAnswer?.trim()) {
                 scores[type].correct += 1;
             }
@@ -683,9 +682,9 @@ const ResultsScreen = ({ assessmentData, userAnswers, scores, onCopyResults, onR
                 <div className="space-y-3 pl-12">
                   {q.choices.map((choice, choiceIndex) => {
                     let highlightClass = 'border-slate-700';
-                    if (choice === q.correctAnswer) {
+                    if (choice.trim() === q.correctAnswer.trim()) {
                       highlightClass = 'bg-green-500/20 border-green-500';
-                    } else if (choice === userAnswers[index]) {
+                    } else if (choice.trim() === userAnswers[index]?.trim()) {
                       highlightClass = 'bg-red-500/20 border-red-500';
                     }
                     return (
